@@ -1,6 +1,7 @@
 from strategy.PDFOpenerStrategy import PDFOpenerStrategy
 from strategy.PDFReaderStrategy import PDFReaderStrategy
 from strategy.ParagraphRegexSplitterStrategy import ParagraphRegexSplitterStrategy
+from strategy.ParagraphKeywordSplitterStrategy import ParagraphKeywordSplitterStrategy
 from service.Checker import Checker
 from service.Opener import Opener
 from service.Reader import Reader
@@ -40,6 +41,7 @@ if checker.check(paragraphs):
 else:
     print("bad")
 
+print(paragraphs)
 # p_dict = json.loads(paragraphs)
 # for p in p_dict:
 #     print(p)

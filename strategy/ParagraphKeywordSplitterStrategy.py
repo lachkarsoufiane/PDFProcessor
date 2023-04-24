@@ -1,7 +1,8 @@
 from interface.ISplitterStrategy import ISplitterStrategy
 import json
 
-class ParagraphKeywordSpitterStrategy(ISplitterStrategy):
+class ParagraphKeywordSplitterStrategy(ISplitterStrategy):
+    
     def split_content(content, start_keyword, end_keyword = None):
         end_keyword = start_keyword if end_keyword is None else end_keyword
         paragraphs = []
