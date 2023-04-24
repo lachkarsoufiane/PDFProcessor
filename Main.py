@@ -5,6 +5,7 @@ from strategy.ParagraphRegexSplitterStrategy import ParagraphRegexSplitterStrate
 from strategy.ParagraphKeywordSplitterStrategy import ParagraphKeywordSplitterStrategy
 from strategy.ESCCFormatter import ESCCFormatter
 from strategy.DSCCFormatter import DSCCFormatter
+from strategy.TableESCCFormatterStrategy import TableESCCFormatterStrategy
 from strategy.JsonCheckerStrategy import JsonCheckerStrategy
 from service.Checker import Checker
 from service.Opener import Opener
@@ -33,6 +34,7 @@ def runESCC():
     json_checker = Checker(JsonCheckerStrategy)
     ESCCchecker = Checker(CheckerESCCStrategy)
     formatter = Formatter(ESCCFormatter)
+    table_formatter = Formatter(TableESCCFormatterStrategy)
     
     
     # Abrir el fichero
@@ -47,10 +49,13 @@ def runESCC():
     # Formatear los parrafos si estan en el formato requerido 
 
     if ESCCchecker.check(paragraphs) and json_checker.check(paragraphs):
-        print(formatter.format(paragraphs))
+        formated = formatter.format(paragraphs)
+        table = table_formatter.format(formated)
+        print(table)
     else:
         print("bad")
 
+    
     # p_dict = json.loads(paragraphs)
     # for p in p_dict:
     #     print(p)
@@ -61,6 +66,7 @@ def runDSCC():
     splitter = Splitter(ParagraphKeywordSplitterStrategy)
     json_checker = Checker(JsonCheckerStrategy)
     formatter = Formatter(DSCCFormatter)
+   
 
 
 
@@ -74,4 +80,4 @@ def runDSCC():
         print("Something went wrong!")
 
 if __name__ == "__main__":
-    runDSCC()
+    runESCC()

@@ -19,7 +19,6 @@ class ESCCFormatter (IForamtterStrategy):
                     if(certificate.find("rev") >= 0):
                         revision = certificate[certificate.find("rev"):]
                         certificate = certificate[:-4]
-                    
                     result[certificate] = {}
                     
                     result[certificate]["Title"] = title
@@ -27,7 +26,7 @@ class ESCCFormatter (IForamtterStrategy):
                     result[certificate]["Manufacturer"] = manifacturer
                     result[certificate]["Description"] = description
 
-            result = json.dump(result)
+        result = json.dumps(result)
 
         return result
         
