@@ -16,4 +16,5 @@ class CheckerESCCStrategy(ICheckStrategy):
             if title not in titles:
                 print(title)
                 return False
+        
         return True

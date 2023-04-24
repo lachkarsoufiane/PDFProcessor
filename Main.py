@@ -23,7 +23,7 @@ checker = Checker(CheckerESCCStrategy)
 
 
 def runESCC():
-    
+
     # Abrir el fichero
     open_file = opener.open_file(file_path)
 
@@ -33,8 +33,6 @@ def runESCC():
     paragraphs = splitter.split_content(content, title_re, extra_re)
 
     # Checkear el resultado 
-
-
 
     if checker.check(paragraphs):
         print("ok")
