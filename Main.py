@@ -1,11 +1,14 @@
 from strategy.PDFOpenerStrategy import PDFOpenerStrategy
-from strategy.PDFReaderStrategy import PDFReaderStrategy
+from strategy.PDFTableReaderStrategy import PDFTableReaderStrategy
 from strategy.ParagraphRegexSplitterStrategy import ParagraphRegexSplitterStrategy
 from strategy.ParagraphKeywordSplitterStrategy import ParagraphKeywordSplitterStrategy
+from strategy.ESCCFormatter import ESCCFormatter
+from strategy.JsonCheckerStrategy import JsonCheckerStrategy
 from service.Checker import Checker
 from service.Opener import Opener
 from service.Reader import Reader
 from service.Splitter import Splitter
+from service.Formatter import Formatter
 from strategy.CheckerESCCStrategy import CheckerESCCStrategy
 import json
 import re
@@ -17,9 +20,11 @@ page = 3
 
 # Inicializar las strategias
 opener = Opener(PDFOpenerStrategy)
-reader = Reader(PDFReaderStrategy)
+reader = Reader(PDFTableReaderStrategy)
 splitter = Splitter(ParagraphRegexSplitterStrategy)
-checker = Checker(CheckerESCCStrategy)
+json_checker = Checker(JsonCheckerStrategy)
+ESCCchecker = Checker(CheckerESCCStrategy)
+formatter = Formatter(ESCCFormatter)
 
 
 def runESCC():
@@ -32,10 +37,11 @@ def runESCC():
 
     paragraphs = splitter.split_content(content, title_re, extra_re)
 
-    # Checkear el resultado 
 
-    if checker.check(paragraphs):
-        print("ok")
+    # Formatear los parrafos si estan en el formato requerido 
+
+    if ESCCchecker.check(paragraphs) and json_checker.check(paragraphs):
+        print(formatter.format(paragraphs))
     else:
         print("bad")
 
