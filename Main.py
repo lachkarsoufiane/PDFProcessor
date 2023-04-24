@@ -1,8 +1,10 @@
 from strategy.PDFOpenerStrategy import PDFOpenerStrategy
 from strategy.PDFTableReaderStrategy import PDFTableReaderStrategy
+from strategy.PDFTextReaderStrategy import PDFTextReaderStrategy
 from strategy.ParagraphRegexSplitterStrategy import ParagraphRegexSplitterStrategy
 from strategy.ParagraphKeywordSplitterStrategy import ParagraphKeywordSplitterStrategy
 from strategy.ESCCFormatter import ESCCFormatter
+from strategy.DSCCFormatter import DSCCFormatter
 from strategy.JsonCheckerStrategy import JsonCheckerStrategy
 from service.Checker import Checker
 from service.Opener import Opener
@@ -14,21 +16,25 @@ import json
 import re
 
 file_path = "./files/esccrpqpl005iss235.pdf"
+file_path_2 = "./files/DSCCFile.pdf"
 title_re = re.compile(r'[A-Z][a-zA-Z -]+(?=:$)')
 extra_re = re.compile(r'(Extension|Revision): [a-zA-Z. ]+')
 page = 3
 
-# Inicializar las strategias
-opener = Opener(PDFOpenerStrategy)
-reader = Reader(PDFTableReaderStrategy)
-splitter = Splitter(ParagraphRegexSplitterStrategy)
-json_checker = Checker(JsonCheckerStrategy)
-ESCCchecker = Checker(CheckerESCCStrategy)
-formatter = Formatter(ESCCFormatter)
+
 
 
 def runESCC():
 
+    # Inicializar las strategias
+    opener = Opener(PDFOpenerStrategy)
+    reader = Reader(PDFTableReaderStrategy)
+    splitter = Splitter(ParagraphRegexSplitterStrategy)
+    json_checker = Checker(JsonCheckerStrategy)
+    ESCCchecker = Checker(CheckerESCCStrategy)
+    formatter = Formatter(ESCCFormatter)
+    
+    
     # Abrir el fichero
     open_file = opener.open_file(file_path)
 
@@ -49,6 +55,23 @@ def runESCC():
     # for p in p_dict:
     #     print(p)
 
+def runDSCC():
+    opener = Opener(PDFOpenerStrategy)
+    reader = Reader(PDFTextReaderStrategy)
+    splitter = Splitter(ParagraphKeywordSplitterStrategy)
+    json_checker = Checker(JsonCheckerStrategy)
+    formatter = Formatter(DSCCFormatter)
+
+
+
+    open_file = opener.open_file(file_path_2)
+    content = reader.read_file(open_file, 1)
+    paragraphs = splitter.split_content(content, "Document:")
+
+    if json_checker.check(paragraphs):
+        print("kjdf")
+    else:
+        print("Something went wrong!")
 
 if __name__ == "__main__":
-    runESCC()
+    runDSCC()
