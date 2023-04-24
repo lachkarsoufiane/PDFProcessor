@@ -10,9 +10,6 @@ from strategy.CheckerESCCStrategy import CheckerESCCStrategy
 import json
 import re
 
-
-
-
 file_path = "./files/esccrpqpl005iss235.pdf"
 title_re = re.compile(r'[A-Z][a-zA-Z -]+(?=:$)')
 extra_re = re.compile(r'(Extension|Revision): [a-zA-Z. ]+')
@@ -22,26 +19,33 @@ page = 3
 opener = Opener(PDFOpenerStrategy)
 reader = Reader(PDFReaderStrategy)
 splitter = Splitter(ParagraphRegexSplitterStrategy)
-
-
-# Abrir el fichero
-open_file = opener.open_file(file_path)
-
-# Leer el contenido
-content = reader.read_file(open_file, page)
-
-paragraphs = splitter.split_content(content, title_re, extra_re)
-
-# Checkear el resultado 
 checker = Checker(CheckerESCCStrategy)
 
 
-if checker.check(paragraphs):
-    print("ok")
-else:
-    print("bad")
+def runESCC():
+    
+    # Abrir el fichero
+    open_file = opener.open_file(file_path)
 
-print(paragraphs)
-# p_dict = json.loads(paragraphs)
-# for p in p_dict:
-#     print(p)
+    # Leer el contenido
+    content = reader.read_file(open_file, page)
+
+    paragraphs = splitter.split_content(content, title_re, extra_re)
+
+    # Checkear el resultado 
+
+
+
+    if checker.check(paragraphs):
+        print("ok")
+    else:
+        print("bad")
+
+    print(paragraphs)
+    # p_dict = json.loads(paragraphs)
+    # for p in p_dict:
+    #     print(p)
+
+
+if __name__ == "__main__":
+    runESCC()

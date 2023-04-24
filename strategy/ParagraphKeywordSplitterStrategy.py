@@ -9,7 +9,9 @@ class ParagraphKeywordSplitterStrategy(ISplitterStrategy):
         paragraph = ""
         current_title = None
         content_list = content.split("\n")
+        
         for i, line in enumerate(content_list):
+            
             if(line.find(end_keyword) >= 0 and line != current_title and current_title ):
                 paragraphs.append(paragraph)
                 paragraph = ""
@@ -24,4 +26,5 @@ class ParagraphKeywordSplitterStrategy(ISplitterStrategy):
             
             if(i == len(content_list)-1):
                 paragraphs.append(paragraph)
+        
         return paragraphs

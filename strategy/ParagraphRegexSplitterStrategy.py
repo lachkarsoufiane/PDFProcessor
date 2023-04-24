@@ -28,4 +28,5 @@ class ParagraphRegexSplitterStrategy(ISplitterStrategy):
                 paragraph += line + " \n"
 
         result = json.dumps(paragraphs)
+        
         return result
