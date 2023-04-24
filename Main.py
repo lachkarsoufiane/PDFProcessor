@@ -39,7 +39,6 @@ def runESCC():
     else:
         print("bad")
 
-    print(paragraphs)
     # p_dict = json.loads(paragraphs)
     # for p in p_dict:
     #     print(p)
