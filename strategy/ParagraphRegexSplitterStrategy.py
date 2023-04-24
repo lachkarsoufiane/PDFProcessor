@@ -1,7 +1,7 @@
 from interface.ISplitterStrategy import ISplitterStrategy
 import json
 
-class ParagraphSplitterStrategy(ISplitterStrategy):
+class ParagraphRegexSplitterStrategy(ISplitterStrategy):
     def split_content(content, start, end = None):
         end = start if end is None else end 
         paragraphs = {}

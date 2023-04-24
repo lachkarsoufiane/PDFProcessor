@@ -1,6 +1,6 @@
 from abc import ABC, abstractstaticmethod
 
-class IChecker(ABC):
+class IOpener(ABC):
     @abstractstaticmethod
-    def check(json :str)->bool:
+    def open_file(file_path):
         pass
