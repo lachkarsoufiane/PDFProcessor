@@ -1,6 +1,6 @@
 import re
 
-TITLE_RE = re.compile(r'[A-Z][a-zA-Z -]+(?=:\s?\n)')
+TITLE_RE = re.compile(r'[A-Z][a-zA-Z -]+(?=:$)')
 
 MANUFACTURE_RE = re.compile(r'[^ ,][a-zA-Z!@#$&()\\-`+\’ ]+\([a-zA-Z]+\)')
 

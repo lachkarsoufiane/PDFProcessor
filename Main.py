@@ -16,13 +16,15 @@ from service.Splitter import Splitter
 from service.Formatter import Formatter
 from service.Export import Export
 from strategy.CheckerESCCStrategy import CheckerESCCStrategy
+
+import Asset.Regex as Regex
 import json
 import re
 
-file_path = "./files/esccrpqpl005iss234_jan_23.pdf"
+file_path = "./files/esccrpqpl005iss235.pdf"
 file_path_2 = "./files/DSCCFile.pdf"
-title_re = re.compile(r'[A-Z][a-zA-Z -]+(?=:$)')
-extra_re = re.compile(r'(Extension|Revision): [a-zA-Z. ]+')
+title_re = Regex.TITLE_RE
+extra_re = Regex.EXTRA_RE
 export_path = "./export/result.xlsx"
 page = 3
 
@@ -89,4 +91,4 @@ def runDSCC():
 
 
 if __name__ == "__main__":
-    runDSCC()
+    runESCC()

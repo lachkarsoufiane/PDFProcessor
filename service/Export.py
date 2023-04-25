@@ -5,5 +5,5 @@ class Export(IExport):
         self._export_content = export_content
 
 
-    def export(self, table, path, page_name):
-        self._export_content.export(table, path, page_name)
+    def export(self, table, path, page_name) -> bool:
+        return self._export_content.export(table, path, page_name)
