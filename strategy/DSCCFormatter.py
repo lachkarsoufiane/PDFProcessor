@@ -5,22 +5,31 @@ import json
 class DSCCFormatter (IForamtterStrategy):
     def format(content):
         content = json.loads(content)
-        result = {}
-        titles = ["Document", "Description","URL","File size", "More Info"]
+        result = []
+        #titles = ["Document", "Description","URL","File size", "More Info"]
         url_re = Regex.URL_RE
-        current_title = None
-        for line in content.split("\n"):
-            match_title = False
-            for title in titles:
-                if line.lower().startswith(title.lower()):
-                    text = line[len(title)+2:]
-                    current_title = title
-                    match_title = True
-            if not match_title:
-
-                if url_re.match(text):
-                    text = text.replace(" ", "")
-                result[current_title] = text
+        for index in content:
+            data = {}
+            current_title = None
+            titles = Regex.DSCC_TITLES_RE.findall(content[index])
+            
+            for line in content[index].split("\n"):
+                match_title = False
                 
+                for title in titles:
+                    if line.lower().startswith(title.lower()):
+                        current_title = title
+                        data[current_title] = line[len(title)+2:]
+                        match_title = True
+                
+
+                if not match_title and current_title:
+                    data[current_title] += line
+                    # Quitar lo espacios blancos si es un enlace
+                    if url_re.match(data[current_title]):
+                        data[current_title] = data[current_title].replace(" ", "")
+            
+            result.append(data)
+        result = json.dumps(result)
         return result
         

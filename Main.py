@@ -6,20 +6,24 @@ from strategy.ParagraphKeywordSplitterStrategy import ParagraphKeywordSplitterSt
 from strategy.ESCCFormatter import ESCCFormatter
 from strategy.DSCCFormatter import DSCCFormatter
 from strategy.TableESCCFormatterStrategy import TableESCCFormatterStrategy
+from strategy.TableDSCCFormatterStrategy import TableDSCCFormatterStrategy
 from strategy.JsonCheckerStrategy import JsonCheckerStrategy
+from strategy.ExcelExportStrategy import ExcelExportStrategy
 from service.Checker import Checker
 from service.Opener import Opener
 from service.Reader import Reader
 from service.Splitter import Splitter
 from service.Formatter import Formatter
+from service.Export import Export
 from strategy.CheckerESCCStrategy import CheckerESCCStrategy
 import json
 import re
 
-file_path = "./files/esccrpqpl005iss235.pdf"
+file_path = "./files/esccrpqpl005iss234_jan_23.pdf"
 file_path_2 = "./files/DSCCFile.pdf"
 title_re = re.compile(r'[A-Z][a-zA-Z -]+(?=:$)')
 extra_re = re.compile(r'(Extension|Revision): [a-zA-Z. ]+')
+export_path = "./export/result.xlsx"
 page = 3
 
 
@@ -35,7 +39,7 @@ def runESCC():
     ESCCchecker = Checker(CheckerESCCStrategy)
     formatter = Formatter(ESCCFormatter)
     table_formatter = Formatter(TableESCCFormatterStrategy)
-    
+    exporter = Export(ExcelExportStrategy)
     
     # Abrir el fichero
     open_file = opener.open_file(file_path)
@@ -45,20 +49,17 @@ def runESCC():
 
     paragraphs = splitter.split_content(content, title_re, extra_re)
 
-
     # Formatear los parrafos si estan en el formato requerido 
 
     if ESCCchecker.check(paragraphs) and json_checker.check(paragraphs):
         formated = formatter.format(paragraphs)
         table = table_formatter.format(formated)
-        print(table)
+        exporter.export(table, export_path, "ESCC")
     else:
-        print("bad")
+        print("bad format")
 
-    
-    # p_dict = json.loads(paragraphs)
-    # for p in p_dict:
-    #     print(p)
+
+
 
 def runDSCC():
     opener = Opener(PDFOpenerStrategy)
@@ -66,18 +67,26 @@ def runDSCC():
     splitter = Splitter(ParagraphKeywordSplitterStrategy)
     json_checker = Checker(JsonCheckerStrategy)
     formatter = Formatter(DSCCFormatter)
+    table_formatter = Formatter(TableDSCCFormatterStrategy)
+    exporter = Export(ExcelExportStrategy)
    
-
-
-
     open_file = opener.open_file(file_path_2)
-    content = reader.read_file(open_file, 1)
+    content = reader.read_file(open_file, 2)
     paragraphs = splitter.split_content(content, "Document:")
-
+    
     if json_checker.check(paragraphs):
-        print("kjdf")
+        print("Formatear el contenido ...")
+        formated = formatter.format(paragraphs)
+        print("Creando la tabla ...")
+        table = table_formatter.format(formated)
+        print("Exportar el resultado ...")
+        exported = exporter.export(table, "./export/resultDSCC.xlsx", "DSCC")
+        if exporter:
+            print("Se ha exportado la tabla :)")
     else:
         print("Something went wrong!")
 
+
+
 if __name__ == "__main__":
-    runESCC()
+    runDSCC()

@@ -27,6 +27,5 @@ class ESCCFormatter (IForamtterStrategy):
                     result[certificate]["Description"] = description
 
         result = json.dumps(result)
-
         return result
         

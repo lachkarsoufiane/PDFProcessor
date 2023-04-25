@@ -11,3 +11,5 @@ EXTRA_RE = re.compile(r'(Extension|Revision): [a-zA-Z. ]+')
 REVISION_RE = re.compile(r'rev\d{1}')
 
 URL_RE = re.compile(r'^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\/')
+
+DSCC_TITLES_RE = re.compile(r'[A-Z][a-zA-Z ]+(?=:)')

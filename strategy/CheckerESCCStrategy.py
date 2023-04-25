@@ -5,7 +5,7 @@ class CheckerESCCStrategy(ICheckStrategy):
     
     def check(json_content :str) -> bool:
         # Deserializar el contenido json
-        titles = ["Extension", "Extension with new Remark", "Extension with re-scope", "Editorial", "Removal"]
+        titles = ["Extension", "Extension with new Remark", "Extension with re-scope", "Editorial", "Removal", "Revision"]
         try:
             content = json.loads(json_content)
         except:
