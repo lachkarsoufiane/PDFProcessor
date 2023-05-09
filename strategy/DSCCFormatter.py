@@ -6,7 +6,6 @@ class DSCCFormatter (IForamtterStrategy):
     def format(content):
         content = json.loads(content)
         result = []
-        #titles = ["Document", "Description","URL","File size", "More Info"]
         url_re = Regex.URL_RE
         for index in content:
             data = {}
@@ -25,7 +24,7 @@ class DSCCFormatter (IForamtterStrategy):
 
                 if not match_title and current_title:
                     data[current_title] += line
-                    # Quitar lo espacios blancos si es un enlace
+                    #Quitar los espacios en blancos, en el caso de ser enlace
                     if url_re.match(data[current_title]):
                         data[current_title] = data[current_title].replace(" ", "")
             
