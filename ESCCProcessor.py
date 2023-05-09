@@ -38,13 +38,6 @@ exporter = Export(ExcelExportStrategy)
 
 
 def run():
-    
-    # Pedir informacion
-    # open_file = input("La ruta del fichero: ")
-    # page = int(input("Especifica la pagina: "))
-    # export_path = input("Donde quieres guardar el resultado: ")
-    # sheet_name = input("El nombre de la pagina: ")
-
 
     # Abrir el fichero
     open_file = opener.open_file(file_path)
@@ -63,7 +56,7 @@ def run():
         print("Exportando la tabla...")
         
         if exporter.export(table, export_path, sheet_name) :
-            print("Se ha exportado la tabla <3")
+            print("Se ha exportado la tabla correctamente.")
         else :
             print("No se ha podido exportar la tabla!")
     else:
