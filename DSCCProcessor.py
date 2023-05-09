@@ -54,6 +54,3 @@ def run():
         print("El formato del contenido no es Json!")
 
 
-
-if __name__ == "__main__" :
-    run()

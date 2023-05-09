@@ -70,5 +70,3 @@ def run():
         print("Bad format!")
 
 
-if __name__ == "__main__":
-    run()
