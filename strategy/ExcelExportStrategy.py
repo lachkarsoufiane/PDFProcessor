@@ -13,7 +13,7 @@ class ExcelExportStrategy(IExport):
             mode_type = 'a'
             sheet = 'new'
         try:
-            with pd.ExcelWriter(path, mode = mode_type, if_sheet_exists = sheet ) as writer:
+            with pd.ExcelWriter(path, mode = mode_type, if_sheet_exists=sheet ) as writer:
                 df = pd.DataFrame(table)
                 df.to_excel(writer, sheet_name=page_name)
         except Exception as e:
