@@ -12,7 +12,7 @@ class ParagraphKeywordSplitterStrategy(ISplitterStrategy):
         index = 0
         for i, line in enumerate(content_list):
             
-            # si llegamos al final del parrafo, guardomos
+            # si llegamos al final del parrafo, guardamos
             if(line.find(end_keyword) >= 0 and line != current_title and current_title ):
                 result[index] = paragraph
                 paragraph = ""

@@ -7,6 +7,7 @@ class ExcelExportStrategy(IExport):
     def export(table, path, page_name) -> bool:
         mode_type = 'w'
         sheet = None
+        
         # comprobar si el fichero existe, para usar el append
         path = Path(path)
         if path.is_file():

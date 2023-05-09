@@ -1,5 +1,5 @@
 from interface.IFormatterStrategy import IForamtterStrategy
-import Asset.Regex as Regex
+import asset.Regex as Regex
 import json
 
 class DSCCFormatter (IForamtterStrategy):
@@ -24,6 +24,7 @@ class DSCCFormatter (IForamtterStrategy):
 
                 if not match_title and current_title:
                     data[current_title] += line
+
                     #Quitar los espacios en blancos, en el caso de ser enlace
                     if url_re.match(data[current_title]):
                         data[current_title] = data[current_title].replace(" ", "")

@@ -15,7 +15,7 @@ from service.Export import Export
 from service.NameGenerator import NameGenerator
 
 
-import Asset.Regex as Regex
+import asset.Regex as Regex
 
 
 title_re = Regex.TITLE_RE
@@ -50,8 +50,8 @@ def run():
     paragraphs = splitter.split_content(content, title_re, extra_re)
 
     sheet_name = name_generator.generate(file_path)
-    # Formatear los parrafos si estan en el formato requerido 
 
+    # Formatear los parrafos si estan en el formato requerido 
     if ESCCchecker.check(paragraphs) and json_checker.check(paragraphs):
         print("Formateando el contenido...")
         formated = formatter.format(paragraphs)
