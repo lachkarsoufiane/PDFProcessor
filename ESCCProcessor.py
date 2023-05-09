@@ -12,6 +12,7 @@ from service.Reader import Reader
 from service.Splitter import Splitter
 from service.Formatter import Formatter
 from service.Export import Export
+from service.NameGenerator import NameGenerator
 
 
 import Asset.Regex as Regex
@@ -34,6 +35,7 @@ ESCCchecker = Checker(CheckerESCCStrategy)
 formatter = Formatter(ESCCFormatter)
 table_formatter = Formatter(TableESCCFormatterStrategy)
 exporter = Export(ExcelExportStrategy)
+name_generator = NameGenerator
 
 
 
@@ -46,6 +48,8 @@ def run():
     content = reader.read_file(open_file, page)
 
     paragraphs = splitter.split_content(content, title_re, extra_re)
+
+    sheet_name = name_generator.generate(file_path)
     # Formatear los parrafos si estan en el formato requerido 
 
     if ESCCchecker.check(paragraphs) and json_checker.check(paragraphs):
