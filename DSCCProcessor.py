@@ -17,7 +17,7 @@ from service.NameGenerator import NameGenerator
 
 
 file_path = "./files/DSCCFile.pdf"
-export_path = "./export/DSCCresult.xlsx"
+export_path = "./export/DSCC.xlsx"
 sheet_name = "DSCC"
 split_keyword = "Document:"
 page = 1
@@ -40,10 +40,12 @@ def run():
     sheet_name = name_generator.generate(file_path)
 
     if json_checker.check(paragraphs):
+        print("Formateando el contenido...")
         formated = formatter.format(paragraphs)
-        if  checker.check(formated):    
+        print("Creado la tabla...")
+        if  checker.check(formated):
             table = table_formatter.format(formated)
-
+            print("Exportando la tabla...")
             if exporter.export(table, export_path, sheet_name):
                 print("Se ha exportado la tabla correctamente")
             else:

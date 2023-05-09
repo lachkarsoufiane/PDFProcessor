@@ -21,7 +21,7 @@ title_re = Regex.TITLE_RE
 extra_re = Regex.EXTRA_RE
 
 file_path = "./files/esccrpqpl005iss234_jan_23.pdf"
-export_path = "./export/result.xlsx"
+export_path = "./export/ESCC.xlsx"
 sheet_name = "ESCC"
 page = 3
 
