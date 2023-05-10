@@ -64,6 +64,6 @@ def run():
         else :
             print("No se ha podido exportar la tabla!")
     else:
-        print("Bad format!")
+        print("Formato erroneo!")
 
 
