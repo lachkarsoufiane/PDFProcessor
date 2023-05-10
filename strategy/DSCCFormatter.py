@@ -4,9 +4,11 @@ import json
 
 class DSCCFormatter (IForamtterStrategy):
     def format(content):
+        # Deserializar el contenido
         content = json.loads(content)
         result = []
         url_re = Regex.URL_RE
+        # Recorrer los parrafos del contenido
         for index in content:
             data = {}
             current_title = None

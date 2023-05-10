@@ -1,6 +1,6 @@
 from interface.IFormatterStrategy import IForamtterStrategy
 from service.ServiceESCC import ServiceESCC
-import Asset.Regex as Regex
+import asset.Regex as Regex
 import json
 
 class ESCCFormatter (IForamtterStrategy):
